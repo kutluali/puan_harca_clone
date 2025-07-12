@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:puan_harca_clone/examp.dart';
 
 class SingInPage extends StatefulWidget {
   const SingInPage({super.key});
@@ -194,7 +195,12 @@ class _SingInPageState extends State<SingInPage> {
                             Text("Hesabın Yok Mu?"),
                             GestureDetector(
                               onTap: () {
-                                // Üye ol sayfasına git
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => SignUpPage(),
+                                  ),
+                                );
                               },
                               child: Text(
                                 " Üye Ol",

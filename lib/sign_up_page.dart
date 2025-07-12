@@ -46,7 +46,7 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset:
-          false, // Klavye açıldığında ekran boyutunu değiştirme
+          true, // Klavye açıldığında ekran boyutunu değiştirme
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -110,202 +110,204 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                   child: Padding(
                     padding: EdgeInsets.all(0),
-                    child: Column(
-                      children: [
-                        SizedBox(height: 20),
+                    child: SingleChildScrollView(
+                      padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom,
+                      ),
+                      child: Column(
+                        children: [
+                          SizedBox(height: 15),
 
-                        // Form Card
-                        Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            child: Form(
-                              key: _formKey,
-                              child: Padding(
-                                padding: EdgeInsets.all(20),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    // Başlık
-                                    Center(
-                                      child: Text(
-                                        'Üye Ol!',
-                                        style: TextStyle(
-                                          fontSize: 32,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(height: 8),
-                                    Center(
-                                      child: Text(
-                                        'Üyelik bilgilerinizi doldurun ve Puan Harca dünyasını keşfedin!',
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.grey[600],
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                    SizedBox(height: 8),
-
-                                    // İsim TextField
-                                    _buildTextField(
-                                      controller: _isimController,
-                                      labelText: 'İsim',
-                                      prefixIcon: Icons.person_outline,
-                                    ),
-                                    SizedBox(height: 10),
-
-                                    // Soyisim TextField
-                                    _buildTextField(
-                                      controller: _soyisimController,
-                                      labelText: 'Soyisim',
-                                      prefixIcon: Icons.person_outline,
-                                    ),
-                                    SizedBox(height: 10),
-
-                                    // Telefon TextField
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        TextFormField(
-                                          controller: _telefonController,
-                                          keyboardType: TextInputType.phone,
-                                          decoration: InputDecoration(
-                                            labelText: "Telefon Telefonu",
-                                            labelStyle: TextStyle(
-                                              color: Colors.pinkAccent,
-                                              fontSize: 16,
-                                            ),
-                                            floatingLabelBehavior:
-                                                FloatingLabelBehavior
-                                                    .always, //floatingLabelBehavior: FloatingLabelBehavior.always ile label her zaman yukarıda kalır.
-                                            prefixIcon: Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                SizedBox(width: 8),
-                                                Icon(
-                                                  Icons.wifi_calling_outlined,
-                                                  color: Colors.pinkAccent,
-                                                  size: 20,
-                                                ),
-                                                SizedBox(width: 9),
-                                                Text(
-                                                  "+90 (",
-                                                  style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 16,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                              borderSide: BorderSide(
-                                                color: Colors.grey,
-                                                width: 1,
-                                              ),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                              borderSide: BorderSide(
-                                                color: Colors.grey,
-                                                width: 1,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(height: 2),
-
-                                    // Checkbox'lar
-                                    _buildCheckbox(
-                                      value: _kullaniciSozlesmesi,
-                                      text: '*Kullanıcı Sözleşmesi',
-                                      onChanged: (value) {
-                                        setState(() {
-                                          _kullaniciSozlesmesi = value!;
-                                        });
-                                        _validateForm();
-                                      },
-                                    ),
-                                    SizedBox(height: 2),
-                                    _buildCheckbox(
-                                      value: _kvkkAydinlatma,
-                                      text:
-                                          '*KVKK ve İşlenmesi Aydınlatma Metni',
-                                      onChanged: (value) {
-                                        setState(() {
-                                          _kvkkAydinlatma = value!;
-                                        });
-                                        _validateForm();
-                                      },
-                                    ),
-                                    SizedBox(height: 8),
-
-                                    // Logo
-                                    Center(
-                                      child: Container(
-                                        width: 40,
-                                        height: 40,
-                                        child: Image.asset(
-                                          'images/logo.png',
-                                          fit: BoxFit.contain,
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(height: 20),
-
-                                    // İleri Butonu
-                                    Container(
-                                      width: double.infinity,
-                                      height: 50,
-                                      child: ElevatedButton(
-                                        onPressed: _isFormValid
-                                            ? () {
-                                                // Form submit işlemi
-                                                print('Form submitted');
-                                              }
-                                            : null,
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: _isFormValid
-                                              ? Colors.pink
-                                              : Colors.grey[300],
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(
-                                              28,
-                                            ),
-                                          ),
-                                          elevation: 0,
-                                        ),
+                          // Form Card
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                              child: Form(
+                                key: _formKey,
+                                child: Padding(
+                                  padding: EdgeInsets.all(20),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      // Başlık
+                                      Center(
                                         child: Text(
-                                          'İLERİ',
+                                          'Üye Ol!',
                                           style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w600,
-                                            color: _isFormValid
-                                                ? Colors.white
-                                                : Colors.grey[600],
+                                            fontSize: 32,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black,
                                           ),
                                         ),
                                       ),
-                                    ),
-                                    SizedBox(height: 24),
-                                  ],
+                                      SizedBox(height: 8),
+                                      Center(
+                                        child: Text(
+                                          'Üyelik bilgilerinizi doldurun ve Puan Harca dünyasını keşfedin!',
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.grey[600],
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                      SizedBox(height: 8),
+
+                                      // İsim TextField
+                                      _buildTextField(
+                                        controller: _isimController,
+                                        labelText: 'İsim',
+                                        prefixIcon: Icons.person_outline,
+                                      ),
+                                      SizedBox(height: 10),
+
+                                      // Soyisim TextField
+                                      _buildTextField(
+                                        controller: _soyisimController,
+                                        labelText: 'Soyisim',
+                                        prefixIcon: Icons.person_outline,
+                                      ),
+                                      SizedBox(height: 10),
+
+                                      // Telefon TextField
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          TextFormField(
+                                            controller: _telefonController,
+                                            keyboardType: TextInputType.phone,
+                                            decoration: InputDecoration(
+                                              labelText: "Telefon Telefonu",
+                                              labelStyle: TextStyle(
+                                                color: Colors.pinkAccent,
+                                                fontSize: 16,
+                                              ),
+                                              floatingLabelBehavior:
+                                                  FloatingLabelBehavior
+                                                      .always, //floatingLabelBehavior: FloatingLabelBehavior.always ile label her zaman yukarıda kalır.
+                                              prefixIcon: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  SizedBox(width: 8),
+                                                  Icon(
+                                                    Icons.wifi_calling_outlined,
+                                                    color: Colors.pinkAccent,
+                                                    size: 20,
+                                                  ),
+                                                  SizedBox(width: 9),
+                                                  Text(
+                                                    "+90 (",
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 16,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              enabledBorder: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(30),
+                                                borderSide: BorderSide(
+                                                  color: Colors.grey,
+                                                  width: 1,
+                                                ),
+                                              ),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(30),
+                                                borderSide: BorderSide(
+                                                  color: Colors.grey,
+                                                  width: 1,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      // Checkbox'lar
+                                      _buildCheckbox(
+                                        value: _kullaniciSozlesmesi,
+                                        text: '*Kullanıcı Sözleşmesi',
+                                        onChanged: (value) {
+                                          setState(() {
+                                            _kullaniciSozlesmesi = value!;
+                                          });
+                                          _validateForm();
+                                        },
+                                      ),
+                                      _buildCheckbox(
+                                        value: _kvkkAydinlatma,
+                                        text:
+                                            '*KVKK ve İşlenmesi Aydınlatma Metni',
+                                        onChanged: (value) {
+                                          setState(() {
+                                            _kvkkAydinlatma = value!;
+                                          });
+                                          _validateForm();
+                                        },
+                                      ),
+                                      SizedBox(height: 4),
+
+                                      // Logo
+                                      Center(
+                                        child: Container(
+                                          width: 40,
+                                          height: 40,
+                                          child: Image.asset(
+                                            'images/logo.png',
+                                            fit: BoxFit.contain,
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(height: 20),
+
+                                      // İleri Butonu
+                                      Container(
+                                        width: double.infinity,
+                                        height: 50,
+                                        child: ElevatedButton(
+                                          onPressed: _isFormValid
+                                              ? () {
+                                                  // Form submit işlemi
+                                                  print('Form submitted');
+                                                }
+                                              : null,
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: _isFormValid
+                                                ? Colors.pink
+                                                : Colors.grey[300],
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(28),
+                                            ),
+                                            elevation: 0,
+                                          ),
+                                          child: Text(
+                                            'İLERİ',
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w600,
+                                              color: _isFormValid
+                                                  ? Colors.white
+                                                  : Colors.grey[600],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(height: 24),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
