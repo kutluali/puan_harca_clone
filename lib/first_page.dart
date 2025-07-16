@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:puan_harca_clone/examp.dart';
+import 'package:puan_harca_clone/sign_page.dart';
 import 'package:puan_harca_clone/sing_in_page.dart';
 
 class FirstPage extends StatefulWidget {
@@ -105,7 +105,7 @@ class _FirstPageState extends State<FirstPage> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => SignUpPage()),
+                        MaterialPageRoute(builder: (context) => SignPage()),
                       );
                     },
                     child: Text("ÜYE OL!"),

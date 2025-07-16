@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:puan_harca_clone/examp.dart';
+import 'package:puan_harca_clone/first_page.dart';
+import 'package:puan_harca_clone/home_page.dart';
+import 'package:puan_harca_clone/main.dart';
+import 'package:puan_harca_clone/sign_page.dart';
+import 'package:puan_harca_clone/widgets/custom_nav_bar_page.dart';
+import 'package:puan_harca_clone/widgets/phone_input_field.dart';
 
 class SingInPage extends StatefulWidget {
   const SingInPage({super.key});
@@ -9,6 +14,8 @@ class SingInPage extends StatefulWidget {
 }
 
 class _SingInPageState extends State<SingInPage> {
+  final _formKey = GlobalKey<FormState>();
+  final _phoneController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
   bool _isTextFieldFocused = false;
 
@@ -102,69 +109,47 @@ class _SingInPageState extends State<SingInPage> {
                         ),
                         SizedBox(height: 35),
 
-                        //Telefon Numarası  Input
-                        TextField(
-                          focusNode: _focusNode,
-                          keyboardType: TextInputType.phone,
-                          decoration: InputDecoration(
-                            labelText: "Cep Telefonu",
-                            labelStyle: TextStyle(
-                              color: Colors.pinkAccent,
-                              fontSize: 16,
-                            ),
-                            floatingLabelBehavior: FloatingLabelBehavior
-                                .always, //floatingLabelBehavior: FloatingLabelBehavior.always ile label her zaman yukarıda kalır.
-                            prefixIcon: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                SizedBox(width: 8),
-                                Icon(
-                                  Icons.wifi_calling_outlined,
-                                  color: Colors.pinkAccent,
-                                  size: 20,
-                                ),
-                                SizedBox(width: 9),
-                                Text(
-                                  "+90 (",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 16,
+                        //Form Telefon Numarası Input Başlangıç
+                        Form(
+                          key: _formKey,
+                          child: Column(
+                            children: [
+                              PhoneInputField(controller: _phoneController),
+                              SizedBox(height: 40),
+                              Container(
+                                width: double.infinity, // Tam genişlik
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.pinkAccent,
+                                    foregroundColor: Colors.white,
+                                    minimumSize: Size(
+                                      0,
+                                      50,
+                                    ), // Genişlik otomatik
+                                  ),
+                                  onPressed: () {
+                                    if (_formKey.currentState!.validate()) {
+                                      // Geçerli input
+                                      Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (_) => CustomNavBarPage(),
+                                        ),
+                                      );
+                                    }
+                                  },
+                                  child: Text(
+                                    "GİRİŞ YAP",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
-                              ],
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: BorderSide(
-                                color: Colors.grey,
-                                width: 1,
                               ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: BorderSide(
-                                color: Colors.grey,
-                                width: 1,
-                              ),
-                            ),
+                            ],
                           ),
                         ),
-                        SizedBox(height: 40),
-                        Container(
-                          width: double.infinity, // Tam genişlik
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.pinkAccent,
-                              foregroundColor: Colors.white,
-                              minimumSize: Size(0, 50), // Genişlik otomatik
-                            ),
-                            onPressed: () {},
-                            child: Text(
-                              "GİRİŞ YAP",
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
+                        //Form Bitiş
                         SizedBox(height: 10),
                         Container(
                           width: double.infinity, // Tam genişlik
@@ -180,7 +165,14 @@ class _SingInPageState extends State<SingInPage> {
                                 width: 1,
                               ),
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => FirstPage(),
+                                ),
+                              );
+                            },
                             child: Text(
                               "VAZGEÇ",
                               style: TextStyle(fontWeight: FontWeight.bold),
@@ -197,7 +189,7 @@ class _SingInPageState extends State<SingInPage> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => SignUpPage(),
+                                    builder: (context) => SignPage(),
                                   ),
                                 );
                               },
@@ -220,39 +212,6 @@ class _SingInPageState extends State<SingInPage> {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class AppBar extends StatelessWidget {
-  const AppBar({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      flex: 35,
-      child: Stack(
-        children: [
-          Positioned(
-            top: -35,
-            right: 35,
-            child: CircleAvatar(radius: 40, backgroundColor: Colors.pinkAccent),
-          ),
-          Positioned(
-            top: 75,
-            right: 75,
-            child: CircleAvatar(
-              radius: 60,
-              backgroundColor: Colors.orangeAccent,
-            ),
-          ),
-          Positioned(
-            top: 90,
-            right: -18,
-            child: CircleAvatar(radius: 25, backgroundColor: Colors.lightBlue),
-          ),
-        ],
       ),
     );
   }

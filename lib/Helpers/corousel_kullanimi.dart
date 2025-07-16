@@ -177,7 +177,7 @@ class _CustomCarouselState extends State<CustomCarousel> {
                   boxShadow: widget.enlargeCenterPage && index == _currentIndex
                       ? [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.3),
+                            color: Colors.black.withAlpha(25),
                             blurRadius: 8,
                             offset: const Offset(0, 4),
                           ),

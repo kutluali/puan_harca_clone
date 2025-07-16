@@ -16,6 +16,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        automaticallyImplyLeading: false, // Geri butonunu gizler
         backgroundColor: Colors.white,
         title: Stack(
           //Logoyu ortaladık

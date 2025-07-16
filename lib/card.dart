@@ -56,7 +56,7 @@ class CardPointsSection extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.orange.withOpacity(0.3),
+                    color: Colors.orange.withAlpha(25),
                     spreadRadius: 2,
                     blurRadius: 8,
                     offset: const Offset(0, 4),

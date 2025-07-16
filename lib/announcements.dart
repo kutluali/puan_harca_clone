@@ -285,7 +285,7 @@ class _AnnouncementsState extends State<Announcements> {
             ),
             child: Center(
               child: Text(
-                "ARKADAŞINDAN ALDIĞIN DAVET KODUNU GİR 50 TL'YE KADAR PUAN KAZAN!",
+                "Çalışmalarımız Devam Etmektedir 😊",
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
